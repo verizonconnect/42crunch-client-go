@@ -38,22 +38,3 @@ jobs:
         args: release --rm-dist
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Calculate version
-      id: calculate-version
-      run: |
-        tag_name=${{ fromJson(steps.goreleaser-release.outputs.metadata).tag }}
-        version=${{ fromJson(steps.goreleaser-release.outputs.metadata).version }}
-        echo "::set-output name=tag_name::$tag_name"
-        echo "::set-output name=version::$version"
-
-    - name: Upload goreleaser built binaries to artifact gitlab-ecs-driver.${{ steps.calculate-version.outputs.version }}
-      uses: actions/upload-artifact@v3
-      with:
-        name: gitlab-ecs-driver.${{ steps.calculate-version.outputs.version }}
-        path: |
-          dist/*.zip
-          dist/*.tar.gz
-          dist/*.rpm
-          dist/*.deb
-          dist/*.rb

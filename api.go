@@ -7,8 +7,9 @@ import (
 	"time"
 )
 
-func (apis ApiService) GetByCollection(ctx context.Context, id string) (c ApiResult, err error) {
-	req, err := apis.client.newRequest(ctx, http.MethodGet, fmt.Sprintf("/api/v2/collections/%s/apis", id))
+func (apis ApiService) ListApis(ctx context.Context, id string) (c ApiResult, err error) {
+	req, err := apis.client.newRequest(ctx, http.MethodGet, fmt.Sprintf("/api/v1/collections/%s/apis", id))
+
 	if err != nil {
 		return
 	}
@@ -18,7 +19,7 @@ func (apis ApiService) GetByCollection(ctx context.Context, id string) (c ApiRes
 	return
 }
 
-func (apis ApiService) Get(ctx context.Context, id string) (c ApiItem, err error) {
+func (apis ApiService) ReadApi(ctx context.Context, id string) (c ApiItem, err error) {
 	req, err := apis.client.newRequest(ctx, http.MethodGet, fmt.Sprintf("/api/v1/apis/%s", id))
 	if err != nil {
 		return
@@ -31,7 +32,7 @@ func (apis ApiService) Get(ctx context.Context, id string) (c ApiItem, err error
 
 func (apis ApiService) ReadApiStatus(ctx context.Context, id string) (res ApiStatus, err error) {
 
-	c, err := apis.Get(ctx, id)
+	c, err := apis.ReadApi(ctx, id)
 	if err != nil {
 		return
 	}

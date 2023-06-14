@@ -49,7 +49,7 @@ func (cs CollectionsService) GetAll(ctx context.Context) (c CollectionsResult, e
 	return
 }
 
-func (cs CollectionsService) Get(ctx context.Context, id string) (c Collection, err error) {
+func (cs CollectionsService) ReadCollection(ctx context.Context, id string) (c Collection, err error) {
 	req, err := cs.client.newRequest(ctx, http.MethodGet, fmt.Sprintf("/api/v1/collections/%s", id))
 	if err != nil {
 		return

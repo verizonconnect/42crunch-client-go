@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.0.1](https://github.com/verizonconnect/42crunch-client-go/compare/v1.0.0...v1.0.1) (2023-06-14)
+
+
+### Miscellaneous
+
+* remove example test file ([19508c8](https://github.com/verizonconnect/42crunch-client-go/commit/19508c892fc007c1ffdb2b59cbc0cec8907bb55d))
+* return values ([447ac78](https://github.com/verizonconnect/42crunch-client-go/commit/447ac781d287a8919e264829ff3816db0094b336))
+* update lint complexity ([e0776aa](https://github.com/verizonconnect/42crunch-client-go/commit/e0776aa50583d851289d76117a0b98cd412573c9))
+
 ## 1.0.0 (2023-06-14)
 
 

@@ -87,7 +87,7 @@ func (c Client) newRequest(ctx context.Context, method, path string, options ...
 
 type requestOption func(*http.Request) error
 
-func (c Client) doRequest(req *http.Request, v interface{}) (a apiResponse, err error) {
+func (c Client) doRequest(req *http.Request, v interface{}) (resp apiResponse, err error) {
 	if c.debug {
 		reqDump, _ := httputil.DumpRequestOut(req, true)
 		log.Printf("sending request:\n>>>>>>\n%s\n>>>>>>\n", string(reqDump))
@@ -126,8 +126,9 @@ func (c Client) doRequest(req *http.Request, v interface{}) (a apiResponse, err 
 		}
 	}
 
-	a, err = c.newAPIResponse(res)
-	return
+	resp, err = c.newAPIResponse(res)
+
+	return resp, err
 }
 
 type apiResponse struct {

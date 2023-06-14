@@ -1,11 +1,26 @@
+run:
+  concurrency: 8
+  deadline: 3m
+  issues-exit-code: 1
+  tests: true
+  skip-dirs:
+    - vendor
+    - .go
+
+output:
+  format: colored-line-number
+  print-issued-lines: true
+  print-linter-name: true
+
 linters-settings:
-  gci:
-    sections:
-      - standard
-      - default
-  cyclop:
-    max-complexity: 15
-    package-average: 10
+  gocyclo:
+    # minimal code complexity to report, 30 by default (but we recommend 10-20)
+    min-complexity: 7
+  govet:
+    check-shadowing: false
+  goconst:
+    min-len: 3
+    min-occurrences: 3
 
 linters:
   enable-all: true

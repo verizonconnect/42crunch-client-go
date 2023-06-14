@@ -1,21 +1,26 @@
-project_name: fargate
-
-before:
-  hooks:
-    - go mod tidy
-
 builds:
-  - env:
-      - CGO_ENABLED=0
-    goos:
-      - linux
-    goarch:
-      - amd64
-      - arm64
-    id: "fargate"
-    # Custom ldflags templates.
-    # Default is `-s -w -X main.version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}} -X main.builtBy=goreleaser`.
-    ldflags:
-      - -s -w -X gitlab.com/gitlab-org/ci-cd/custom-executor-drivers/fargate.VERSION={{ .Version }} -X gitlab.com/gitlab-org/ci-cd/custom-executor-drivers/fargate.REVISION={{.Commit}} -X gitlab.com/gitlab-org/ci-cd/custom-executor-drivers/fargate.BRANCH={{.Branch}} -X gitlab.com/gitlab-org/ci-cd/custom-executor-drivers/fargate.BUILT={{.Date}}
-    main: ./cmd/fargate
-    binary: "{{ .ProjectName }}"
+# This is a library project, we don't want to build any binaries.
+# Building and testing is performed in the CI workflow
+- skip: true
+changelog:
+  use: github
+  sort: asc
+  groups:
+  - title: Features
+    regexp: "^.*feat[(\\w)]*:+.*$"
+    order: 0
+  - title: Fixes
+    regexp: "^.*fix[(\\w)]*:+.*$"
+    order: 1
+  - title: Building and Packaging
+    regexp: "^.*build[(\\w)]*:+.*$"
+    order: 2
+  - title: Documentation
+    regexp: "^.*docs[(\\w)]*:+.*$"
+    order: 3
+  - title: Others
+    order: 999
+  filters:
+    exclude:
+    - '^test:'
+    - '^Merge '

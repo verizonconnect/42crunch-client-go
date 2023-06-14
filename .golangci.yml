@@ -22,21 +22,33 @@ linters-settings:
     min-len: 3
     min-occurrences: 3
 
+# linters:
+#   enable-all: true
+#   disable:
+#     - deadcode
+#     - exhaustivestruct
+#     - exhaustruct
+#     - golint
+#     - gomnd
+#     - ifshort
+#     - interfacer
+#     - maligned
+#     - nosnakecase
+#     - scopelint
+#     - structcheck
+#     - tagliatelle
+#     - varcheck
+#     - varnamelen
+#   fast: false
 linters:
-  enable-all: true
-  disable:
-    - deadcode
-    - exhaustivestruct
-    - exhaustruct
-    - golint
-    - gomnd
-    - ifshort
-    - interfacer
-    - maligned
-    - nosnakecase
-    - scopelint
-    - structcheck
-    - tagliatelle
-    - varcheck
-    - varnamelen
-  fast: false
+  enable:
+    - asciicheck
+    - exhaustive
+    - gochecknoinits
+    - goconst
+    - gofmt
+    - gosec
+    - predeclared
+    - unconvert
+    - unparam
+    - wastedassign

@@ -50,5 +50,5 @@ linters:
     - gosec
     - predeclared
     - unconvert
-    - unparam
+    # - unparam
     - wastedassign

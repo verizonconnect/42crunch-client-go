@@ -16,7 +16,7 @@ import (
 
 const (
 	DefaultTimeout   = 10 * time.Second
-	DefaultUserAgent = "github.com/mieliespoor/42crunch-client-go"
+	DefaultUserAgent = "github.com/verizonconnect/42crunch-client-go"
 )
 
 type contextKey string

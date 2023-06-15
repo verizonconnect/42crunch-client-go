@@ -5,7 +5,7 @@ _Go client library for [42Crunch](https://docs.42crunch.com/)_
 ## Installation
 
 ```
-go get github.com/verizonconnect/42crunch-client-go
+go get github.com/mieliespoor/42crunch-client-go
 ```
 
 ## API Coverage

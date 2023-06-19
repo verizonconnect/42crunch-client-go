@@ -2,6 +2,8 @@ package crunchclient
 
 import (
 	"context"
+	b64 "encoding/base64"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"time"
@@ -49,4 +51,37 @@ func (apis ApiService) ReadApiStatus(ctx context.Context, id string) (res ApiSta
 	}
 
 	return
+}
+
+func (apis ApiService) ReadAssessmentReport(ctx context.Context, id string) (report AssessmentReport, err error) {
+
+	req, err := apis.client.newRequest(ctx, http.MethodGet, fmt.Sprintf("/api/v1/apis/%s/assessmentreport", id))
+	if err != nil {
+		return
+	}
+
+	// todo: we first need to ensure the api is processed before we can return this report
+
+	var resp ApiAssessmentResponse
+	_, err = apis.client.doRequest(req, &resp)
+
+	if err != nil {
+		return report, err
+	}
+
+	if resp.Encoding != "base64" {
+		err = fmt.Errorf("unsupported data type")
+	}
+
+	sDec, err := b64.StdEncoding.DecodeString(resp.Data)
+	if resp.Encoding != "base64" {
+		err = fmt.Errorf("Unable to decode report document data: %w", err)
+	}
+
+	err = json.Unmarshal(sDec, &report)
+	if err != nil {
+		err = fmt.Errorf("Unable to decode report document: %w", err)
+	}
+
+	return report, err
 }

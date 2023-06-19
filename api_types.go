@@ -18,7 +18,7 @@ type ApiItem struct {
 	Revision    ApiRevision    `json:"revision"`
 	Assessment  ApiAssessment  `json:"assessment"`
 	Scan        ApiScan        `json:"scan"`
-	Tags        []ApiTag       `json:"tag"`
+	Tags        []ApiTag       `json:"tags"`
 }
 
 type ApiDescription struct {

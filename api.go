@@ -9,10 +9,6 @@ import (
 	"time"
 )
 
-const (
-	defaultCriticality = 5
-)
-
 func (apis ApiService) ListApis(ctx context.Context, id string) (c ApiResult, err error) {
 	req, err := apis.client.newRequest(ctx, http.MethodGet, fmt.Sprintf("/api/v1/collections/%s/apis", id))
 
@@ -75,11 +71,13 @@ func (apis ApiService) ReadAssessmentReport(ctx context.Context, id string) (rep
 
 	if resp.Encoding != "base64" {
 		err = fmt.Errorf("unsupported data type")
+		return report, err
 	}
 
 	sDec, err := b64.StdEncoding.DecodeString(resp.Data)
 	if resp.Encoding != "base64" {
 		err = fmt.Errorf("Unable to decode report document data: %w", err)
+		return report, err
 	}
 
 	err = json.Unmarshal(sDec, &report)

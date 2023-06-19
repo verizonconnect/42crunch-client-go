@@ -128,17 +128,23 @@ type AssessmentReport struct {
 	Criticality             int      `json:"criticality"`
 	IssueCounter            int      `json:"issueCounter"`
 	SemanticErrors          struct {
-		Issues map[string]SemanticErrorIssue `json:"issues"`
+		Issues map[string]AssessmentIssue `json:"issues"`
 	} `json:"semanticErrors"`
+	ValidationErrors struct {
+		Issues map[string]AssessmentIssue `json:"issues"`
+	} `json:"validationErrors"`
+	Warnings struct {
+		Issues map[string]AssessmentIssue `json:"issues"`
+	} `json:"warnings"`
 	OperationsNoAuthentication []int `json:"operationsNoAuthentication"`
 	MinimalReport              bool  `json:"minimalReport"`
 	MaxEntriesPerIssue         int   `json:"maxEntriesPerIssue"`
 	MaxImpactedPerEntry        int   `json:"maxImpactedPerEntry"`
 	Security                   struct {
-		IssueCounter         int                      `json:"issueCounter"`
-		Score                int                      `json:"score"`
-		Criticality          int                      `json:"criticality"`
-		Issues               map[string]SecurityIssue `json:"issues"`
+		IssueCounter         int                        `json:"issueCounter"`
+		Score                int                        `json:"score"`
+		Criticality          int                        `json:"criticality"`
+		Issues               map[string]AssessmentIssue `json:"issues"`
 		SubgroupIssueCounter struct {
 			Authentication IssueCounter `json:"authentication"`
 			Authorization  IssueCounter `json:"authorization"`
@@ -146,10 +152,10 @@ type AssessmentReport struct {
 		} `json:"subgroupIssueCounter"`
 	} `json:"security"`
 	Data struct {
-		IssueCounter         int                  `json:"issueCounter"`
-		Score                float64              `json:"score"`
-		Criticality          int                  `json:"criticality"`
-		Issues               map[string]DataIssue `json:"issues"`
+		IssueCounter         int                        `json:"issueCounter"`
+		Score                float64                    `json:"score"`
+		Criticality          int                        `json:"criticality"`
+		Issues               map[string]AssessmentIssue `json:"issues"`
 		SubgroupIssueCounter struct {
 			Parameters         IssueCounter `json:"parameters"`
 			ResponseHeader     IssueCounter `json:"responseHeader"`
@@ -163,42 +169,17 @@ type AssessmentReport struct {
 	Summary       AssessmentReportSummary `json:"summary"`
 }
 
-type SemanticErrorIssue struct {
-	Description  string          `json:"description"`
-	TotalIssues  int             `json:"totalIssues"`
-	Issues       []SemanticIssue `json:"issues"`
-	TooManyError bool            `json:"tooManyError"`
-}
-
-type SemanticIssue struct {
-	Pointer             int    `json:"pointer"`
-	SpecificDescription string `json:"specificDescription"`
-}
-
-type DataIssue struct {
+type AssessmentIssue struct {
 	Description string `json:"description"`
 	Issues      []struct {
-		Score           float64 `json:"score"`
-		Pointer         int     `json:"pointer"`
-		TooManyImpacted bool    `json:"tooManyImpacted"`
-		Criticality     int     `json:"criticality"`
-		Response        bool    `json:"response"`
+		Score               float64 `json:"score"`
+		Pointer             int     `json:"pointer"`
+		TooManyImpacted     bool    `json:"tooManyImpacted"`
+		Criticality         int     `json:"criticality"`
+		Response            bool    `json:"response"`
+		SpecificDescription string  `json:"specificDescription"`
 	} `json:"issues"`
-	IssueCounter int     `json:"issueCounter"`
-	Score        float64 `json:"score"`
-	Criticality  int     `json:"criticality"`
-	TooManyError bool    `json:"tooManyError"`
-}
-
-type SecurityIssue struct {
-	Description string `json:"description"`
-	Issues      []struct {
-		Score           float64 `json:"score"`
-		Pointer         int     `json:"pointer"`
-		TooManyImpacted bool    `json:"tooManyImpacted"`
-		Criticality     int     `json:"criticality"`
-		Request         bool    `json:"request"`
-	} `json:"issues"`
+	TotalIssues  int     `json:"totalIssues"`
 	IssueCounter int     `json:"issueCounter"`
 	Score        float64 `json:"score"`
 	Criticality  int     `json:"criticality"`
@@ -220,7 +201,7 @@ type AssessmentReportSummary struct {
 	Basepath                         string           `json:"basepath"`
 	APIName                          string           `json:"apiName"`
 	Description                      string           `json:"description"`
-	Endpoints                        []interface{}    `json:"endpoints"`
+	Endpoints                        []string         `json:"endpoints"`
 	PathCounter                      int              `json:"pathCounter"`
 	OperationCounter                 int              `json:"operationCounter"`
 	ParameterCounter                 int              `json:"parameterCounter"`
@@ -236,4 +217,14 @@ type AssessmentReportSummary struct {
 	ComponentsSecuritySchemesCounter int              `json:"componentsSecuritySchemesCounter"`
 	ComponentsLinksCounter           int              `json:"componentsLinksCounter"`
 	ComponentsCallbacksCounter       int              `json:"componentsCallbacksCounter"`
+}
+
+type ApiIssue struct {
+	Id           string
+	Description  string
+	Pointer      string
+	Score        int32
+	DisplayScore string
+	Criticality  int
+	Severity     string
 }

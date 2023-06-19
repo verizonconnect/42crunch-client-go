@@ -9,6 +9,10 @@ import (
 	"time"
 )
 
+const (
+	defaultCriticality = 5
+)
+
 func (apis ApiService) ListApis(ctx context.Context, id string) (c ApiResult, err error) {
 	req, err := apis.client.newRequest(ctx, http.MethodGet, fmt.Sprintf("/api/v1/collections/%s/apis", id))
 

@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.1.0](https://github.com/verizonconnect/42crunch-client-go/compare/v1.0.1...v1.1.0) (2023-06-20)
+
+
+### Features
+
+* api assessment report ([#5](https://github.com/verizonconnect/42crunch-client-go/issues/5)) ([0774649](https://github.com/verizonconnect/42crunch-client-go/commit/0774649689902e1785e64f1827d89a97cb9d9894))
+
+
+### Bug Fixes
+
+* api tags serialisation ([#4](https://github.com/verizonconnect/42crunch-client-go/issues/4)) ([22225c3](https://github.com/verizonconnect/42crunch-client-go/commit/22225c31e438b7999dd056efe005346a482b1d89))
+
+
+### Miscellaneous
+
+* rename ([15444f2](https://github.com/verizonconnect/42crunch-client-go/commit/15444f21d977794922dc311457e5442aa3f49b39))
+* rename ([b591a3a](https://github.com/verizonconnect/42crunch-client-go/commit/b591a3a3a603dff1d0d24261856122f2981c2a2f))
+
 ## [1.0.1](https://github.com/verizonconnect/42crunch-client-go/compare/v1.0.0...v1.0.1) (2023-06-14)
 
 

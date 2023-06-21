@@ -10,7 +10,7 @@ import (
 )
 
 func (apis ApiService) ListApis(ctx context.Context, id string) (c ApiResult, err error) {
-	req, err := apis.client.newRequest(ctx, http.MethodGet, fmt.Sprintf("/api/v1/collections/%s/apis", id))
+	req, err := apis.client.newRequest(ctx, http.MethodGet, fmt.Sprintf("/api/v2/collections/%s/apis?withTags=true", id))
 
 	if err != nil {
 		return

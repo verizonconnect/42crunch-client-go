@@ -5,12 +5,45 @@ import (
 	b64 "encoding/base64"
 	"encoding/json"
 	"fmt"
+	"math"
 	"net/http"
 	"time"
 )
 
+// return all the api's for a specific api collection
 func (apis ApiService) ListApis(ctx context.Context, id string) (c ApiResult, err error) {
-	req, err := apis.client.newRequest(ctx, http.MethodGet, fmt.Sprintf("/api/v2/collections/%s/apis?withTags=true", id))
+	capis, err := apis.ListApisPaged(ctx, id, 1, 50)
+	if err != nil {
+		return
+	}
+
+	apiItems := make([]ApiItem, 0)
+	apiItems = append(apiItems, capis.Items...)
+	if capis.Count > 50 {
+		pages := math.Ceil(float64(capis.Count) / 50)
+
+		// we will start at page 2 here given we already got page one
+		for i := 2; i < int(pages)+1; i++ {
+			pagedResult, perr := apis.ListApisPaged(ctx, id, i, 50)
+			if perr != nil {
+				err = fmt.Errorf("unable to read page of while retrieving api's. %w", err)
+				return
+			}
+
+			apiItems = append(apiItems, pagedResult.Items...)
+		}
+	}
+
+	var result ApiResult
+	result.Count = int32(len(apiItems))
+	result.Items = apiItems
+
+	return result, nil
+}
+
+// return paged results of api's for a specific api collection
+func (apis ApiService) ListApisPaged(ctx context.Context, id string, page int, perPage int) (c ApiResult, err error) {
+	req, err := apis.client.newRequest(ctx, http.MethodGet, fmt.Sprintf("/api/v2/collections/%s/apis?withTags=true&page=%d&perPage=%d", id, page, perPage))
 
 	if err != nil {
 		return

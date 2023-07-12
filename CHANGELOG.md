@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/verizonconnect/42crunch-client-go/compare/v1.1.1...v1.2.0) (2023-07-12)
+
+
+### Features
+
+* return paged results of collection api's ([#10](https://github.com/verizonconnect/42crunch-client-go/issues/10)) ([c4212c5](https://github.com/verizonconnect/42crunch-client-go/commit/c4212c5e391141d3092c4276f5231987bfb7176a))
+
 ## [1.1.1](https://github.com/verizonconnect/42crunch-client-go/compare/v1.1.0...v1.1.1) (2023-06-21)
 
 
